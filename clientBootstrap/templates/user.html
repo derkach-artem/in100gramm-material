@@ -1,0 +1,93 @@
+<div class="row">
+
+    </br>
+    <div ng-if="thisUser" ng-controller="userCtrl">
+        <input type="checkbox" id="test5" ng-change="cangeVisibleProfile()" ng-model="hiddenProfile" />
+        <label for="test5">Click here to change visible profile</label>
+    </div>
+
+    <div class="col-lg-9 col-md-9 col-sm-9" ng-if="thisUser" ng-controller="userCtrl">
+
+
+
+        <form name="form">
+            <div class="card-panel hoverable" ngf-select ng-model="files" ngf-multiple="true">
+                <div class="panel-body">
+                    Click to load Image
+                </div>
+            </div>
+            <button ng-disabled="!files" type="button" class="btn btn-primary" ng-click="loadImgs(files)" ng-show="files">Save</button>
+        </form>
+
+
+
+        <table class="responsive-table bordered" ng-show="files">
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr ng-repeat="f in files">
+                    <th><img ngf-src="!files[0].$error && files[$index]" ngf-resize="{width: 150, height: 50, quality: 0.9}"></th>
+                    <th>{{files[$index].name}}</th>
+                    <th><a class="btn-floating btn-large waves-effect waves-light red" ng-click='del($index)'><i class="material-icons">remove</i></a></th>
+                </tr>
+            </tbody>
+        </table>
+
+
+
+
+        <div class="progress" ng-show="files" ng-controller="userCtrl">
+            <div class="determinate" style="width: {{progress}}%"></div>
+        </div>
+
+
+    </div>
+
+    <style>
+        .x {
+            width: 10%;
+            height: 20%;
+            color: red;
+            cursor: pointer;
+        }
+        
+        .media-insert .modal {
+            max-height: 100%;
+            overflow: visible;
+        }
+        
+        .media-insert .modal .modal-content {
+            text-align: center;
+        }
+
+        .card-panel {
+            background-color: #f5f5f5;
+        }
+
+        .card{
+            background-color: #f5f5f5;
+            cursor: pointer;
+        }
+    </style>
+
+    <div class="row">
+        <div class="card col s12 m6 l6" ng-repeat="image in images">
+            <div class="card-image ">
+                <img class="" src="{{image.url}}" ng-click="openModal(image.url)" href="#modal1">
+                <a class="right btn-floating btn-small waves-effect waves-light red" ng-show="thisUser" ng-click="delPic($index)"><i class="material-icons">delete</i></a>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <img ng-src="{{modImg}}" style="width: 100%" style="height: 100%">
+        </div>
+    </div>
+</div>
